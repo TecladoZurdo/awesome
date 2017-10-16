@@ -20,6 +20,9 @@ require("awful.hotkeys_popup.keys")
 
 --- mis requerimientos
 local APW = require("apw/widget")
+local vicious = require ("vicious")
+
+
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -127,6 +130,20 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 -- Create a textclock widget
 mytextclock = wibox.widget.textclock()
 
+-- Creando un ventana de memoria
+ memwidget = wibox.widget.textbox()
+ vicious.cache(vicious.widgets.mem)
+ vicious.register(memwidget, vicious.widgets.mem, "Memoria al $1% ($2MB/$3MB)", 13)
+ 
+-- Creando una ventana para el procesador 
+ cpuwidget = awful.widget.graph()
+ cpuwidget:set_width(50)
+ cpuwidget:set_background_color("#494B4F")
+ cpuwidget:set_color({ type = "linear", from = { 0, 0 }, to = { 50, 0 },
+ stops = { { 0, "#FF5656" }, { 0.5, "#88A175" }, { 1, "#AECF96" }}})
+ vicious.register(cpuwidget, vicious.widgets.cpu, "$1", 3)
+
+
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
                     awful.button({ }, 1, function(t) t:view_only() end),
@@ -226,6 +243,8 @@ awful.screen.connect_for_each_screen(function(s)
             mykeyboardlayout,
             wibox.widget.systray(),
             mytextclock,
+	    cpuwidget,
+	    memwidget,
             s.mylayoutbox,
 	    APW,
         },
