@@ -12,7 +12,7 @@ vicious
 mkdir ~/.config/awesome && cp /etc/xdg/awesome/rc.lua ~/.config/awesome/
 `````
 
-De lo contrario  clonamos este rpeositorio dentro de la carpeta
+De lo contrario  clonamos este repositorio dentro de la carpeta
 ````
 ~/.config
 ````
