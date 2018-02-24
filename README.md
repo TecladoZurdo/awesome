@@ -2,6 +2,9 @@
 ````
 awesome
 vicious
+xcompmgr
+nitrogen
+lxappearance
 
 ````
 ## Configuración
