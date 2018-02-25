@@ -5,7 +5,7 @@ vicious
 xcompmgr
 nitrogen
 lxappearance
-
+xscreensaver
 ````
 ## Configuración
 - Luego proceder con la configuración
