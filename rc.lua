@@ -127,13 +127,34 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibar
+
 -- Create a textclock widget
 mytextclock = wibox.widget.textclock()
-
+local cal_notification
+mytextclock:connect_signal("button::release",
+    function()
+        if cal_notification == nil then
+            awful.spawn.easy_async([[bash -c "cal -3m | sed 's/_.\(.\)/+\1-/g'"]],
+                function(stdout, stderr, reason, exit_code)
+                    cal_notification = naughty.notify{
+                        text = string.gsub(string.gsub(stdout, 
+                                                       "+", "<span foreground='red'>"), 
+                                                       "-", "</span>"),
+                        font = "Ubuntu Mono 9",
+                        timeout = 0,
+                        width = auto,
+                        destroy = function() cal_notification = nil end
+                    }
+                end
+            )
+        else
+            naughty.destroy(cal_notification)
+        end
+    end)
 -- Creando un ventana de memoria
  memwidget = wibox.widget.textbox()
  vicious.cache(vicious.widgets.mem)
- vicious.register(memwidget, vicious.widgets.mem, "Memoria al $1% ($2MB/$3MB)", 13)
+ vicious.register(memwidget, vicious.widgets.mem, "RAM al $1%", 13)
  
 -- Creando una ventana para el procesador 
  cpuwidget = awful.widget.graph()
@@ -144,7 +165,7 @@ mytextclock = wibox.widget.textclock()
  vicious.register(cpuwidget, vicious.widgets.cpu, "$1", 3)
 
  -- Creando para la red
- eths = { 'docker0', 'wlp0s29u1u3u4' }
+ eths = { 'enp2s0', 'wlp1s0' }
 netwidget = wibox.widget.textbox()
 vicious.register( netwidget, vicious.widgets.net,
 function(widget,args)
@@ -152,10 +173,10 @@ t=''
 for i = 1, #eths do
 e = eths[i]       
 if args["{"..e.." carrier}"] == 1 then
-    if e == 'wlp0s29u1u3u4' then
-        t=t..'|'..'Wifi: <span color="#CC9933"> down: '..args['{'..e..' down_kb}']..' kbps</span>  <span color="#7F9F7F">up: ' ..args['{'..e..' up_kb}']..'   kbps </span>'..'[ '..args['{'..e..' rx_gb}'].. ' GB // ' ..args['{'..e..' tx_gb}']..' GB ] '
+    if e == 'wlp1s0' then
+        t=t..'|'..' Wifi: <span color="#CC9933"> down: '..args['{'..e..' down_kb}']..' kbps</span>'
     else          
-        t=t..'|'..'Eth0: <span color="#CC9933"> down: '..args['{'..e..' down_kb}']..' kbps</span>  <span color="#7F9F7F">up: ' ..args['{'..e..' up_kb}']..'   kbps </span>'..'[ '..args['{'..e..' rx_gb}'].. ' GB // ' ..args['{'..e..' tx_gb}']..' GB ] '
+        t=t..'|'..' Eth0: <span color="#CC9933"> down: '..args['{'..e..' down_kb}']..' kbps</span>  <span color="#7F9F7F">up: ' ..args['{'..e..' up_kb}']..'   kbps </span>'..'[ '..args['{'..e..' rx_gb}'].. ' GB / ' ..args['{'..e..' tx_gb}']..' GB ] '
     end
 end
 end               
@@ -244,7 +265,7 @@ awful.screen.connect_for_each_screen(function(s)
     set_wallpaper(s)
 
     -- Each screen has its own tag table.
-    awful.tag({ "1-Inicio", "2-Web", "3-Code", "4-Terminal", "5-Explorador", "6-Musica", "7-Video", "8-Descargas", "9-XD" }, s, awful.layout.layouts[1])
+    awful.tag({ "Inicio", "2-Web", "3-Code", "4-Terminal", "5-HDD", "6-Musica", "7-Video", "8-Virtual", "9-XD" }, s, awful.layout.layouts[1])
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -279,6 +300,7 @@ awful.screen.connect_for_each_screen(function(s)
             layout = wibox.layout.fixed.horizontal,
             mykeyboardlayout,
             wibox.widget.systray(),
+	    clockwidget,
             mytextclock,
 	    cpuwidget,
 	    memwidget,
