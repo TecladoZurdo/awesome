@@ -143,7 +143,44 @@ mytextclock = wibox.widget.textclock()
  stops = { { 0, "#FF5656" }, { 0.5, "#88A175" }, { 1, "#AECF96" }}})
  vicious.register(cpuwidget, vicious.widgets.cpu, "$1", 3)
 
+ -- Creando para la red
+ eths = { 'docker0', 'wlp0s29u1u3u4' }
+netwidget = wibox.widget.textbox()
+vicious.register( netwidget, vicious.widgets.net,
+function(widget,args)
+t=''  
+for i = 1, #eths do
+e = eths[i]       
+if args["{"..e.." carrier}"] == 1 then
+    if e == 'wlp0s29u1u3u4' then
+        t=t..'|'..'Wifi: <span color="#CC9933"> down: '..args['{'..e..' down_kb}']..' kbps</span>  <span color="#7F9F7F">up: ' ..args['{'..e..' up_kb}']..'   kbps </span>'..'[ '..args['{'..e..' rx_gb}'].. ' GB // ' ..args['{'..e..' tx_gb}']..' GB ] '
+    else          
+        t=t..'|'..'Eth0: <span color="#CC9933"> down: '..args['{'..e..' down_kb}']..' kbps</span>  <span color="#7F9F7F">up: ' ..args['{'..e..' up_kb}']..'   kbps </span>'..'[ '..args['{'..e..' rx_gb}'].. ' GB // ' ..args['{'..e..' tx_gb}']..' GB ] '
+    end
+end
+end               
+if string.len(t)>0 then -- remove leading '|'
+return string.sub(t,2,-1)
+end               
+return 'No network'
+end                                                                                                                                                           
+, 1 )
+ --fin
+--bateria 
+-- {{{ Battery state
+-- Initialize widget
+batwidget = awful.widget.progressbar()
+batwidget:set_width(8)
+batwidget:set_height(14)
+batwidget:set_vertical(true)
+batwidget:set_background_color("#000000")
+batwidget:set_border_color(nil)
+batwidget:set_color("#00bfff")
 
+-- {{{ Battery state
+-- Initialize widget
+vicious.register(batwidget, vicious.widgets.bat, "$2", 120, "BAT0")
+--fin
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
                     awful.button({ }, 1, function(t) t:view_only() end),
@@ -245,6 +282,8 @@ awful.screen.connect_for_each_screen(function(s)
             mytextclock,
 	    cpuwidget,
 	    memwidget,
+	    netwidget,
+	    batwidget,
             s.mylayoutbox,
 	    APW,
         },
