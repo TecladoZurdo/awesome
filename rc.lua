@@ -133,7 +133,8 @@ mytextclock = wibox.widget.textclock()
 -- Creando un ventana de memoria
  memwidget = wibox.widget.textbox()
  vicious.cache(vicious.widgets.mem)
- vicious.register(memwidget, vicious.widgets.mem, "Memoria al $1% ($2MB/$3MB)", 13)
+ vicious.register(memwidget, vicious.widgets.mem, function(widget, args)
+	 return 'Memoria al:'..args[1]..'%'  end, 13)
  
 -- Creando una ventana para el procesador 
  cpuwidget = awful.widget.graph()
