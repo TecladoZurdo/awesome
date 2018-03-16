@@ -154,7 +154,7 @@ for i = 1, #eths do
 e = eths[i]       
 if args["{"..e.." carrier}"] == 1 then
     if e == 'wlp0s29u1u3u4' then
-        t=t..'|'..'Wifi: <span color="#CC9933"> down: '..args['{'..e..' down_kb}']..' kbps</span>  <span color="#7F9F7F">up: ' ..args['{'..e..' up_kb}']..'   kbps </span>'..'[ '..args['{'..e..' rx_gb}'].. ' GB // ' ..args['{'..e..' tx_gb}']..' GB ] '
+        t=t..'|'..' Wifi: <span color="#CC9933"> down: '..args['{'..e..' down_kb}']..' kbps</span>  <span color="#7F9F7F">up: ' ..args['{'..e..' up_kb}']..'   kbps </span>'..'[ '..args['{'..e..' rx_gb}'].. ' GB / ' ..args['{'..e..' tx_gb}']..' GB ] '
     else          
         t=t..'|'..'Eth0: <span color="#CC9933"> down: '..args['{'..e..' down_kb}']..' kbps</span>  <span color="#7F9F7F">up: ' ..args['{'..e..' up_kb}']..'   kbps </span>'..'[ '..args['{'..e..' rx_gb}'].. ' GB // ' ..args['{'..e..' tx_gb}']..' GB ] '
     end
