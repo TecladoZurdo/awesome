@@ -1,4 +1,4 @@
-# Intalar
+# Instalar
 ````
 awesome
 vicious
@@ -6,6 +6,7 @@ xcompmgr
 nitrogen
 lxappearance
 xscreensaver
+terminator
 ````
 ## Configuración
 - Luego proceder con la configuración
