@@ -145,7 +145,7 @@ mytextclock = wibox.widget.textclock()
  vicious.register(cpuwidget, vicious.widgets.cpu, "$1", 3)
 
  -- Creando para la red
- eths = { 'docker0', 'wlp0s29u1u3u4' }
+eths = { 'eno1' }
 netwidget = wibox.widget.textbox()
 vicious.register( netwidget, vicious.widgets.net,
 function(widget,args)
@@ -346,6 +346,7 @@ globalkeys = gears.table.join(
 	
     --- bloqueo de pantalla con screensaver
     awful.key({},"F12", function() awful.util.spawn("xscreensaver-command -lock") end),
+    awful.key({modkey},"l", function() awful.util.spawn("xscreensaver-command -lock") end),
 
     awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
               {description = "open a terminal", group = "launcher"}),
