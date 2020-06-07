@@ -9,7 +9,7 @@ sudo pacman -S awesome vicious xcompmgr nitrogen lxappearance xscreensaver termi
 ~/.config
 ````
 
-- En caso de desear iniciar desde cero creamos un directorio .config y podemos copiar el contenido del repositorio para modificarlo a nuestro gusto.
+- En caso de desear iniciar desde cero creamos un directorio .config y podemos copiar el contenido de ejemplo de la fuente para modificarlo a nuestro gusto.
 `````
 mkdir ~/.config/awesome && cp /etc/xdg/awesome/rc.lua ~/.config/awesome/
 `````
