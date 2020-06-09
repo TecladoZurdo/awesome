@@ -26,9 +26,15 @@ Luego configurar dependiendo de los conectores que dispone el equipo
 xrandr
 `````
 
-Ejecutar la configuracion desead en mi caso es
+Ejecutar la configuracion deseada en mi caso es
 `````
 xrandr --output HDMI3 --auto --output HDMI2 --auto --right-of HDMI3
 `````
 
+Teclado en español:
+`````
+setxkbmap -layout distribución_xkb
+`````
+
+Para hacerlo permanente puede colocarlos en .bashrc
 
