@@ -13,7 +13,22 @@ sudo pacman -S awesome vicious xcompmgr nitrogen lxappearance xscreensaver termi
 `````
 mkdir ~/.config/awesome && cp /etc/xdg/awesome/rc.lua ~/.config/awesome/
 `````
+## Doble monitor
 
+Para los que usan dos monitores instalar
+`````
+sudo pacman -S xorg-xrandr
+`````
 
+Luego configurar dependiendo de los conectores que dispone el equipo
+ - ver las conecciones actuales
+`````
+xrandr
+`````
+
+Ejecutar la configuracion desead en mi caso es
+`````
+xrandr --output HDMI3 --auto --output HDMI2 --auto --right-of HDMI3
+`````
 
 
