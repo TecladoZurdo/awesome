@@ -145,7 +145,7 @@ mytextclock = wibox.widget.textclock()
  vicious.register(cpuwidget, vicious.widgets.cpu, "$1", 3)
 
  -- Creando para la red
- eths = { 'docker0', 'wlp0s29u1u3u4' }
+ eths = { 'docker0', 'wlp3s0', 'enp0s31f6' }
 netwidget = wibox.widget.textbox()
 vicious.register( netwidget, vicious.widgets.net,
 function(widget,args)
@@ -153,9 +153,13 @@ t=''
 for i = 1, #eths do
 e = eths[i]       
 if args["{"..e.." carrier}"] == 1 then
-    if e == 'wlp0s29u1u3u4' then
+    if e == 'wlp3s0' then
         t=t..'|'..' Wifi: <span color="#CC9933"> down: '..args['{'..e..' down_kb}']..' kbps</span>  <span color="#7F9F7F">up: ' ..args['{'..e..' up_kb}']..'   kbps </span>'..'[ '..args['{'..e..' rx_gb}'].. ' GB / ' ..args['{'..e..' tx_gb}']..' GB ] '
-    else          
+    end 
+    if e == 'docker0' then         
+        t=t..'|'..'Docker: <span color="#CC9933"> down: '..args['{'..e..' down_kb}']..' kbps</span>  <span color="#7F9F7F">up: ' ..args['{'..e..' up_kb}']..'   kbps </span>'..'[ '..args['{'..e..' rx_gb}'].. ' GB // ' ..args['{'..e..' tx_gb}']..' GB ] '
+    end
+    if e == 'enp0s31f6' then         
         t=t..'|'..'Eth0: <span color="#CC9933"> down: '..args['{'..e..' down_kb}']..' kbps</span>  <span color="#7F9F7F">up: ' ..args['{'..e..' up_kb}']..'   kbps </span>'..'[ '..args['{'..e..' rx_gb}'].. ' GB // ' ..args['{'..e..' tx_gb}']..' GB ] '
     end
 end
