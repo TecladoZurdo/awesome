@@ -1,7 +1,7 @@
 # Instalar
   Para que funcione se debe instalar los paquetes: 
 ````
-sudo pacman -S awesome vicious xcompmgr nitrogen lxappearance xscreensaver terminator scrot
+sudo pacman -S awesome vicious xcompmgr nitrogen lxappearance terminator scrot
 ````
 ## Configuración
 - Luego proceder a clonar este repositorio dentro de la carpeta
