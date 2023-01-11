@@ -113,8 +113,8 @@ mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesom
                                     { "open terminal", terminal },
 				    { "nautilus","nautilus"},
 				    { "Firefox", "firefox"},
-				    { "VLC", "vlc"},
-                                  }
+				    { "VLC", "vlc"}
+                    }
                         })
 
 mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,

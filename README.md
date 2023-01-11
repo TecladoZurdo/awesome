@@ -5,9 +5,9 @@ sudo pacman -S vicious xcompmgr nitrogen lxappearance terminator scrot
 ````
 
 # Complementos
-  En caso que no tengas instalado el escritorio, firefox y nautilus
+  En caso que no tengas instalado el escritorio, firefox y nautilus etc
 ````
-sudo pacman -S awesome firefox nautilus
+sudo pacman -S awesome firefox nautilus vlc smplayer mpv
 ````
 ## Configuración
 - Luego proceder a clonar este repositorio dentro de la carpeta
