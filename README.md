@@ -1,3 +1,5 @@
+## Solo con xorg no soporta con wayland
+
 # Instalar
   Para que funcione se debe instalar los paquetes: 
 ````
